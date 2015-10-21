@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e107Plugin name="Wrapper" lan="LAN_WRAPPER_NAME" version="1.0" date="2015-10-16" compatibility="2.0" installRequired="true" >
+	<author name="Tijn Kuyper (Moc)" url="http://www.tijnkuyper.nl" />
+	<summary lan="LAN_WRAPPER_SUMM">Wrapping an external page into your website.</summary>
+	<description lan="LAN_WRAPPER_DESC">This plugin allows for wrapping an external page into an iframe, so it can be displayed on your website.</description>
+	<keywords>
+		<word>iframe</word>
+		<word>wrap</word>
+	</keywords>
+	<category>content</category>
+	<copyright>2015</copyright>
+	<adminLinks>
+		<link url="admin_config.php" description="" icon="images/icons/wrapper_32.png" iconSmall="images/icons/wrapper_16.png" primary="true">LAN_CONFIGURE</link>
+	</adminLinks>	
+</e107Plugin>

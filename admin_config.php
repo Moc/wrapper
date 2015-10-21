@@ -1,264 +1,146 @@
 <?php
 /*
-+---------------------------------------------------------------+
-|	e107 website system	                                          |
-|	e107_plugins/wrap/admin_config.php                            |
-|	                                                              |
-|	©Steve Dunstan 2001-2005	                                    |
-|	http://jalist.com	                                            |
-|	stevedunstan@jalist.com	                                      |
-|	                                                              |
-|	Released under the terms and conditions of the	              |
-|	GNU General Public License (http://gnu.org).	                |
-+---------------------------------------------------------------+
-*/
-require_once("../../class2.php");
+ * Wrapper - an e107 plugin by Tijn Kuyper
+ *
+ * Copyright (C) 2015-2016 Tijn Kuyper (http://www.tijnkuyper.nl)
+ * Released under the terms and conditions of the
+ * GNU General Public License (http://www.gnu.org/licenses/gpl.txt)
+ *
+ */
 
-require_once(e_HANDLER."userclass_class.php");
-
-if (file_exists(e_PLUGIN."wrap/languages/".e_LANGUAGE.".php")) {
-	include_once(e_PLUGIN."wrap/languages/".e_LANGUAGE.".php");
-} else {
-	include_once(e_PLUGIN."wrap/languages/English.php");
-}
-
-if (!getperms("P")) {
-	header("location:".e_BASE."index.php");
-	 exit;
-}
-
-require_once(e_ADMIN."auth.php");
-
-// Add a page to wrap 
-if(IsSet($_POST['add_wrap'])){
-	$title = $_POST['wrap_title'];
-	$height = $_POST['wrap_height'];
-	$auto_height = $_POST['wrap_auto_height'];
-	$width = $_POST['wrap_width'];
-	$scroll_bars = $_POST['wrap_scroll_bars'];
-	$url = $_POST['wrap_url'];
-	$uc = $_POST['wrap_userclass'];
-	if($url != ""){
-		$sql -> db_Insert("wrap", " '0', '$url', '$height', '$auto_height', '$width', '$uc', '$title', '$scroll_bars' ");
-		$sql -> db_Select("wrap", "*", "wrap_url='$url'");
-		$row = $sql -> db_Fetch();
-		//$message = WRAPCONF_1.SITEURL.$PLUGINS_DIRECTORY."wrap/wrap.php?".$row['wrap_id'].".";
-		$message = WRAPCONF_1.e_BASE.e_PLUGIN."wrap/wrap.php?".$row['wrap_id'].".";
-	}else{
-		$message = WRAPCONF_2;
-	}
-}
-
-// Update an existing wrapped page
-if(IsSet($_POST['update_wrap'])){
-	$sql -> db_Update("wrap", "wrap_url='".$_POST['wrap_url']."', wrap_height='".$_POST['wrap_height']."', wrap_userclass='".$_POST['wrap_userclass']."', wrap_title='".$_POST['wrap_title']."' WHERE wrap_id='".$_POST['wrap_id']."' ");
-
-	$sql -> db_Update("wrap", "wrap_url='".$_POST['wrap_url']."', wrap_height='".$_POST['wrap_height']."', wrap_auto_height='".$_POST['wrap_auto_height']."', wrap_width='".$_POST['wrap_width']."', wrap_userclass='".$_POST['wrap_userclass']."', wrap_title='".$_POST['wrap_title']."', wrap_scroll_bars='".$_POST['wrap_scroll_bars']."' WHERE wrap_id='".$_POST['wrap_id']."' ");
-	unset($wrap_url, $wrap_height, $wrap_auto_height, $wrap_width, $wrap_userclass, $wrap_scroll_bars, $wrap_title);
-	$message = WRAPCONF_3;
-}
-
-// Delete wrapped page
-if(IsSet($_POST['confirm'])){
-	$sql -> db_Delete("wrap", "wrap_id='".$_POST['id']."' ");
-	$message = WRAPCONF_4;
-}
-
-// Confirm 'delete wrapped page' action
-if(IsSet($_GET['delete'])){
-	$sql -> db_Select("wrap", "*", "wrap_id='".$_GET['delete']."' ");
-	list($wrap_id, $wrap_url, $wrap_height, $wrap_userclass, $wrap_title) = $sql-> db_Fetch();
-	
-	$text = "<div style='text-align:center'>
-<b>".WRAPCONF_5." '$wrap_url' ".WRAPCONF_6."</b>
-<br /><br />
-<form method='post' action='".e_SELF."'>
-<input class='button' type='submit' name='cancel' value='".WRAPCONF_7."' /> 
-<input class='button' type='submit' name='confirm' value='".WRAPCONF_8."' /> 
-<input type='hidden' name='id' value='{$wrap_id}'>
-</form>
-</div>";
-
-  $ns -> tablerender(WRAPCONF_8, $text);
-	
-	require_once(e_ADMIN."footer.php");
+require_once('../../class2.php');
+if (!getperms('P')) 
+{
+	header('location:'.e_BASE.'index.php');
 	exit;
 }
 
-// Cancel 'delete wrapped page' action
-if(isset($_POST['cancel'])){
-	$message = WRAPCONF_9;
-}
-
-// Edit wrapped page
-if(isset($_GET['edit'])){
-	$sql -> db_Select("wrap", "*", "wrap_id='".$_GET['edit']."' ");
-	list($wrap_id, $wrap_url, $wrap_height, $wrap_auto_height, $wrap_width, $wrap_userclass, $wrap_title, $wrap_scroll_bars) = $sql-> db_Fetch();
-}
-
-// Display message (successful database entry and so on..)
-if(isset($message)){
-	$ns -> tablerender(WRAPCONF_21, "<div style='text-align:center'><b>".$message."</b></div>");
-}
-
-$wrap_height = ($wrap_height) ? $wrap_height : "200";
-$wrap_width = ($wrap_width) ? $wrap_width : "100%";
-$wrap_total = $sql -> db_Select("wrap");
-
-// Create the section to add / edit wrapped pages
-$text .= "<form method='post' action='".e_SELF."'>
-<div style='text-align:center'>
-<table class='fborder' style='".ADMIN_WIDTH.";'>
-";
-
-if(isset($_GET['edit'])){
-	$text .= "<tr><td class='forumheader' colspan='2'>";
-	$text .= SITEURL.$PLUGINS_DIRECTORY."wrap/wrap.php?{$wrap_id}";
-	$text .= "</td></tr>";
-}
-
-$text .= "
-<tr>
-<td class='forumheader3' style='width:20%'>".WRAPCONF_11."</td>
-<td class='forumheader3' style='width:80%'>
-<span class='smalltext'>".WRAPCONF_12."</span> 
-<input class='tbox' type='text' name='wrap_title' size='60' value='{$wrap_title}' maxlength='200' />
-</td>
-</tr>
-
-<tr>
-<td class='forumheader3' style='width:20%'>".WRAPCONF_13."</td>
-<td class='forumheader3' style='width:80%'><span class='smalltext'>".WRAPCONF_14."</span><br />
-<input class='tbox' type='text' name='wrap_url' size='60' value='{$wrap_url}' maxlength='200' />
-</td>
-</tr>
-
-";
-
-// Make Scroll bar inputs
-$scroll_bar_options = array('No', 'Yes', 'Auto');
-$text .= "
-<tr>
-<td class='forumheader3' style='width:20'>".WRAPCONF_22."</td>
-<td class='forumheader3' style='eidth:80%'>
-";
-
-if (empty($wrap_scroll_bars)) {
-	$wrap_scroll_bars = 'Auto';
-}
-
-foreach ($scroll_bar_options as $option)
+class wrapper_adminArea extends e_admin_dispatcher
 {
-	if ($wrap_scroll_bars == $option) {
-	$text .= "<input name='wrap_scroll_bars' type='radio' class='rbox' value='".$option."' checked />".$option." ";
-	}
-	else {
-	$text .= "<input name='wrap_scroll_bars' type='radio' class='rbox' value='".$option."' />".$option." ";
-	}
-}
-$text .= "
-</td>
-</tr>
-
-<tr>
-<td class='forumheader3' style='width:20%'>".WRAPCONF_23."</td>
-<td class='forumheader3' style='width:80%'><span class='smalltext'>".WRAPCONF_24."</span><br />
-<input class='tbox' type='text' name='wrap_width' size='5' value='{$wrap_width}' maxlength='5' />
-</td>
-</tr>
-
-<tr>
-<td class='forumheader3' style='width:20%'>".WRAPCONF_15."</td>
-<td class='forumheader3' style='width:80%'>
-<input class='tbox' type='text' name='wrap_height' size='5' value='{$wrap_height}' maxlength='5' /> px</td>
-</tr>
-";
-
-// Make Auto Height Input radio boxes
-$auto_height_options = array('No', 'Yes');
-$text .= "
-<tr>
-<td class='forumheader3' style='width:20'>".WRAPCONF_25."</td>
-<td class='forumheader3' style='eidth:80%'>
-";
-
-if (empty($wrap_auto_height)) {
-	$wrap_auto_height = 'Yes';
-}
-
-foreach ($auto_height_options as $option)
-{
-	if ($wrap_auto_height == $option) {
-	$text .= "<input name='wrap_auto_height' type='radio' class='rbox' value='".$option."' checked />".$option." ";
-	}
-	else {
-	$text .= "<input name='wrap_auto_height' type='radio' class='rbox' value='".$option."' />".$option." ";
-	}
-}
-$text .= "
-</td>
-</tr>
-
-<tr>
-<td class='forumheader3' style='width:20%'>".WRAPCONF_16."</td>
-<td class='forumheader3' style='width:80%'>";
-$text .= r_userclass("wrap_userclass",$wrap_userclass);
-$text .= "</td>
-</tr>
-
-<tr>
-<td colspan='2' style='text-align:center'>";
-
-if(IsSet($_GET['edit'])){
-	$text .= "<br /><input class='button' type='submit' name='update_wrap' value='".WRAPCONF_17."' />
-<input type='hidden' name='wrap_id' value='{$wrap_id}'>";
-}else{
-	$text .= "<br /><input class='button' type='submit' name='add_wrap' value='".WRAPCONF_18."' />";
-}
-
-$text .= "
-</td></tr></table>
-</div></form>
-";
-
-$ns -> tablerender("<div style='text-align:left'>".WRAPCONF_20."</div>", $text);
-
-// Show a list of currently wrapped pages
-
-if(!$wrap_total) {
-	// No wrapped pages found
-  $text = "<div style='text-align:center'><b>".WRAPCONF_10."</b></div>";
-} 
-else
-{
-	$text = "<br /><div style='text-align:center'>
-	<form method='post' action='".e_SELF."'>
-	<table class='fborder' class='fborder' style='".ADMIN_WIDTH.";'>
-	<tr align='center' valign='middle'>
-	  <td class='fcaption' style='width: 5%; text-align: center;'>ID #</td>
-	  <td class='fcaption' style='width: 53%; text-align: left;'>".WRAPCONF_13."</div></td>
-	  <td class='fcaption' style='width: 25%; text-align: center;'>".WRAPCONF_11."</div></td>
-	  <td class='fcaption' style='width: 7%; text-align: center;'>".WRAPCONF_26."</div></td>
-	</tr>";
-	$sql -> db_Select("wrap");
-	while(list($wrap_id, $wrap_url, $wrap_height, $wrap_auto_height, $wrap_width, $wrap_userclass, $wrap_title, $wrap_scroll_bars) = $sql -> db_Fetch()) {
-		$text .= "
-	  <tr align='center' valign='middle'>
-	  <td class='forumheader3' style='text-align: center;'>$wrap_id</td>
-	  <td class='forumheader3' style='text-align: left;'>$wrap_url</td>
-	  <td class='forumheader3' style='text-align: center;'>$wrap_title</td>
-	  <td class='forumheader3' style='text-align:center'><a href='".e_SELF."?edit=".$wrap_id."'>".ADMIN_EDIT_ICON."</a> <a href='".e_SELF."?delete=".$wrap_id."'>".ADMIN_DELETE_ICON."</a>
-	  </td>
-	  </tr>
-	  <tr><td class='forumheader3' colspan='4'><b>".WRAPCONF_22."</b> $wrap_scroll_bars | <b>".WRAPCONF_23."</b> $wrap_width | <b>".WRAPCONF_15."</b> $wrap_height | <b>".WRAPCONF_25."</b> $wrap_auto_height | <b>".WRAPCONF_16."</b> ".r_userclass_name($wrap_userclass)."</td></tr>
-	  <tr><td colspan='4'>&nbsp;</td></tr><tr>
-	  ";
-	  
-	}
-	$text .= "</table></form>\n</div><br />";
-}
+	protected $modes = array(	
 	
-$ns -> tablerender("<div style='text-align:left'>".WRAPCONF_19."</div>", $text);
-require_once(e_ADMIN."footer.php");
+		'main'	=> array(
+			'controller' 	=> 'wrapper_ui',
+			'path' 			=> null,
+			'ui' 			=> 'wrapper_form_ui',
+			'uipath' 		=> null
+		),
+	);	
+	
+	
+	protected $adminMenu = array(
+		'main/list'			=> array('caption'=> LAN_MANAGE, 'perm' => 'P'),
+		'main/create'		=> array('caption'=> LAN_CREATE, 'perm' => 'P'),
+		// 'main/custom'		=> array('caption'=> 'Custom Page', 'perm' => 'P')
+	);
 
-?>
+	protected $adminMenuAliases = array(
+		'main/edit'	=> 'main/list'				
+	);	
+	
+	protected $menuTitle = 'Wrapper';
+}
+
+			
+class wrapper_ui extends e_admin_ui
+{			
+		protected $pluginTitle		= 'Wrapper';
+		protected $pluginName		= 'wrapper';
+	//	protected $eventName		= 'wrapper-wrapper'; // remove comment to enable event triggers in admin. 		
+		protected $table			= 'wrapper';
+		protected $pid				= 'wrapper_id';
+		protected $perPage			= 10; 
+		protected $batchDelete		= true;
+	//	protected $batchCopy		= true;		
+	//	protected $sortField		= 'somefield_order';
+	//	protected $orderStep		= 10;
+	//	protected $tabs				= array('Tabl 1','Tab 2'); // Use 'tab'=>0  OR 'tab'=>1 in the $fields below to enable. 
+		
+	//	protected $listQry      	= "SELECT * FROM `#tableName` WHERE field != '' "; // Example Custom Query. LEFT JOINS allowed. Should be without any Order or Limit.
+	
+		protected $listOrder		= 'wrapper_id DESC';
+	
+		protected $fields 		= array (  'checkboxes' =>   array ( 'title' => '', 'type' => null, 'data' => null, 'width' => '5%', 'thclass' => 'center', 'forced' => '1', 'class' => 'center', 'toggle' => 'e-multiselect',  ),
+		  'wrapper_id' 			=>  array ( 'title' => LAN_ID, 		'data' => 'int', 'width' => '5%', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_title' 		=>  array ( 'title' => LAN_TITLE, 	'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => 'The title of the page (not required)', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_url' 		=>  array ( 'title' => LAN_URL, 	'type' => 'url', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'validate' => true, 'help' => 'The URL of the external page you want to include', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_height'		=>  array ( 'title' => 'Height', 	'type' => 'number', 'data' => 'int', 'width' => 'auto', 'inline' => true, 'help' => 'The height of the frame', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_width' 		=>  array ( 'title' => 'Width', 	'type' => 'number', 'data' => 'int', 'width' => 'auto', 'inline' => true, 'help' => 'The width of the frame', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_auto_height' =>  array ( 'title' => 'Auto height', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => 'Let the plugin choose the appropriate height', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_scroll_bars' =>  array ( 'title' => 'Auto scrollbars', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => 'Let the plugin manage the scrollbars', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_userclass'	=>  array ( 'title' => 'Userclass', 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 'filter' => true, 'help' => 'Make plugin accessible for certain userclasses', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'options' 			=>  array ( 'title' => LAN_OPTIONS, 'type' => null, 'data' => null, 'width' => '10%', 'thclass' => 'center last', 'class' => 'center last', 'forced' => '1',  ),
+		);		
+		
+		protected $fieldpref = array('wrapper_id', 'wrapper_title', 'wrapper_url', 'wrapper_height', 'wrapper_width', 'wrapper_auto_height', 'wrapper_scroll_bars', 'wrapper_userclass');
+		
+
+	//	protected $preftabs        = array('General', 'Other' );
+		protected $prefs = array(
+		); 
+
+	
+		public function init()
+		{
+			// Set drop-down values (if any). 
+	
+		}
+
+		
+		// ------- Customize Create --------
+		
+		public function beforeCreate($new_data)
+		{
+			return $new_data;
+		}
+	
+		public function afterCreate($new_data, $old_data, $id)
+		{
+			// do something
+		}
+
+		public function onCreateError($new_data, $old_data)
+		{
+			// do something		
+		}		
+		
+		// ------- Customize Update --------
+		public function beforeUpdate($new_data, $old_data, $id)
+		{
+			return $new_data;
+		}
+
+		public function afterUpdate($new_data, $old_data, $id)
+		{
+			// do something	
+		}
+		
+		public function onUpdateError($new_data, $old_data, $id)
+		{
+			// do something		
+		}		
+				
+	/*	
+		// optional - a custom page.  
+		public function customPage()
+		{
+			$text = 'Hello World!';
+			return $text;
+			
+		}
+	*/
+			
+}
+				
+class wrapper_form_ui extends e_admin_form_ui
+{
+
+}			
+		
+new wrapper_adminArea();
+
+require_once(e_ADMIN."auth.php");
+e107::getAdminUI()->runPage();
+
+require_once(e_ADMIN."footer.php");
+exit;
