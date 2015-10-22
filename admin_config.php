@@ -129,6 +129,18 @@ class wrapper_ui extends e_admin_ui
 			
 		}
 	*/
+
+	public function renderHelp()
+	{
+	  	$find    = array('[', ']');
+      	$replace = array('<a href="https://github.com/Moc/wrapper/wiki" target="_blank">', '</a>');
+     	$text    = str_replace($find, $replace, LAN_WRAPPER_HELP);
+
+		return array(
+			'caption'	=> "Help",
+			'text'		=> $text,
+		);
+	}
 			
 }
 				

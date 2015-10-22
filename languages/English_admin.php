@@ -19,3 +19,5 @@ define("LAN_WRAPPER_HEIGHT_HELP", 	"The height of the frame. Leave empty or ente
 define("LAN_WRAPPER_WIDTH_HELP", 	"The width of the frame. Leave empty or enter 0 for fullscreen.");
 define("LAN_WRAPPER_SCROLLBARS_HELP", "If enabled, the frame will have scrollbars if applicable. If disabled, all scrollbars are hidden.");
 define("LAN_WRAPPER_USERCLASS_HELP", "Select the userclass that is allowed to access this wrapper.");
+
+define("LAN_WRAPPER_HELP", "Please refer to the [documentation] for any question that you may have."); // Brackets create the link, do not edit!
