@@ -67,8 +67,11 @@ else
 		exit;
 	}
 
+	// Convert scrollbars DB value to HTML values
+	$scrollbars = ($wrapper_query['wrapper_scrollbars'] == 1 ? 'yes' : 'no'); 
+
 	// Check to see if the auto height was selected and if yes, insert the appropriate JS in the footer
-	// NOT WORKING ANYMORE DUE TO CHANGING BROWSER STANDARDS. WORK IN PROGRESS. 
+	// NOT WORKING ANYMORE DUE TO CHANGING BROWSER STANDARDS. WORK IN PROGRESS BELOW. 
 	/*if($wrapper_query['wrapper_auto_height'])
 	{
 		$onload = 'onload="iFrameHeight()"';
@@ -94,21 +97,21 @@ else
 	if(
 		isset($wrapper_query['wrapper_width']) ||
 		isset($wrapper_query['wrapper_height']) ||
-		(isset($wrapper_query['wrapper_height']) && isset($wrapper_query['wrapper_width']))
+		(isset($wrapper_query['wrapper_height']) && isset($wrapper_query['wrapper_width']))  
 	  )
 	{	
 		// Set default width and height, if they are not already defined
 		$width  = varsettrue($wrapper_query['wrapper_width'], "100%");
 		$height = varsettrue($wrapper_query['wrapper_height'], "800");
 
-		$text = "<iframe src='".$wrapper_query['wrapper_url'].$wrap_pass."' width='".$width."' height='".$height."' frameborder='0'></iframe>"; 
+		$text = "<iframe src='".$wrapper_query['wrapper_url'].$wrap_pass."' width='".$width."' height='".$height."' scrolling='".$scrollbars."' frameborder='0'></iframe>"; 
 	}
 	// No width and height set, display the iframe fullscreen
 	else
 	{
 		$width  = $wrapper_query['wrapper_width'];
 		$height = $wrapper_query['wrapper_height'];
-		$text = "<iframe src='".$wrapper_query['wrapper_url'].$wrap_pass."' width='100%' style='height: 100em;' frameborder='0'></iframe>"; 
+		$text = "<iframe src='".$wrapper_query['wrapper_url'].$wrap_pass."' width='100%' style='height: 100em;' scrolling='".$scrollbars."' frameborder='0'></iframe>"; 
 	}
 }
 
