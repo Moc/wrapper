@@ -35,12 +35,12 @@ if(!empty($wrap_pass))
 // Check for Wrapper ID in the URL. Display error if no ID is found in the URL. 
 if(!varset($id))
 {
-	$error = e107::getMessage()->addError("No Wrapper ID was found, please verify the URL is correct!"); // TODO LAN
+	$error = e107::getMessage()->addError(LAN_WRAPPER_ERR1); 
 }
 // Check for ID validity. Display error if ID is not found in the database.
 elseif(!$sql->select("wrapper", "*", "wrapper_id='$id'"))
 {
-	$error = e107::getMessage()->addError("Invalid Wrapper ID, please verify the URL is correct!"); // TODO LAN
+	$error = e107::getMessage()->addError(LAN_WRAPPER_ERR2); 
 }
 
 // If error is found, display error message and exit.
@@ -61,7 +61,7 @@ else
 	// Check for userclass access
 	if(!check_class($wrapper_query['wrapper_userclass']))
 	{
-		e107::getMessage()->addError("You are not allowed to view this page!"); // TODO LAN
+		e107::getMessage()->addError(LAN_WRAPPER_ERR3); // TODO LAN
 		$ns->tablerender($caption, e107::getMessage()->render().$text);
 		require_once(FOOTERF);
 		exit;
