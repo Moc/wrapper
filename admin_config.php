@@ -64,16 +64,16 @@ class wrapper_ui extends e_admin_ui
 		  'wrapper_id' 			=>  array ( 'title' => LAN_ID, 		'data' => 'int', 'width' => '5%', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'wrapper_title' 		=>  array ( 'title' => LAN_TITLE, 	'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => 'The title of the page (not required)', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'wrapper_url' 		=>  array ( 'title' => LAN_URL, 	'type' => 'url', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'validate' => true, 'help' => 'The URL of the external page you want to include', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'wrapper_height'		=>  array ( 'title' => 'Height', 	'type' => 'number', 'data' => 'int', 'width' => 'auto', 'inline' => true, 'help' => 'The height of the frame', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'wrapper_width' 		=>  array ( 'title' => 'Width', 	'type' => 'number', 'data' => 'int', 'width' => 'auto', 'inline' => true, 'help' => 'The width of the frame', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'wrapper_auto_height' =>  array ( 'title' => 'Auto height', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => 'Let the plugin choose the appropriate height', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_height'		=>  array ( 'title' => 'Height', 	'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => 'The height of the frame', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_width' 		=>  array ( 'title' => 'Width', 	'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => 'The width of the frame', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  //'wrapper_auto_height' =>  array ( 'title' => 'Auto height', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => 'Let the plugin choose the appropriate height', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'wrapper_scroll_bars' =>  array ( 'title' => 'Auto scrollbars', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => 'Let the plugin manage the scrollbars', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'wrapper_userclass'	=>  array ( 'title' => 'Userclass', 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 'filter' => true, 'help' => 'Make plugin accessible for certain userclasses', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_userclass'	=>  array ( 'title' => 'Userclass', 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 'inline' => true, 'filter' => true, 'help' => 'Make plugin accessible for certain userclasses', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'options' 			=>  array ( 'title' => LAN_OPTIONS, 'type' => null, 'data' => null, 'width' => '10%', 'thclass' => 'center last', 'class' => 'center last', 'forced' => '1',  ),
 		);		
 		
-		protected $fieldpref = array('wrapper_id', 'wrapper_title', 'wrapper_url', 'wrapper_height', 'wrapper_width', 'wrapper_auto_height', 'wrapper_scroll_bars', 'wrapper_userclass');
-		
+		protected $fieldpref = array('wrapper_id', 'wrapper_title', 'wrapper_url', 'wrapper_height', 'wrapper_width', 'wrapper_scroll_bars', 'wrapper_userclass');
+		// 'wrapper_auto_height',
 
 	//	protected $preftabs        = array('General', 'Other' );
 		protected $prefs = array(
