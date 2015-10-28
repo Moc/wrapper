@@ -3,7 +3,7 @@ Wrapper allows you to easily integrate external pages into your website. This is
 
 It is plugin is based on the "Wrap" plugin which was released early 2004, with its latest update dating back to 2006 (version 0.9.2). See credits below. 
 
-Wrapper aims to provide the same functionaliy using the newest e107 standards as well as current browser standards. It is therefore specifically designed to work with e107 v2.x. 
+Wrapper aims to provide the same functionaliy using the newest e107 standards as well as current browser standards. It is therefore specifically designed to work with e107 v2.x and, in fact, it will not work on e107 v1.x.
 
 ## How to get help? ##
 
@@ -23,6 +23,8 @@ More information on pull-requests can be found [here](https://help.github.com/ar
 Wrapper is based on the original 'Wrap' plugin which was developed by several different people. The original README document has been included in the documentation of this plugin. More information about the history of the plugin can be found there. 
 
 Specifically, I would like to credit the following authors who worked on the original wrap plugin: McFly, Jeremy2, Juan, SuS and jmstacey. 
+
+Please **do not** contact any of the previously mentioned authors for support with this plugin as they cannot assist you.
 
 ## Anything else? ##
 Seriously?! :) Well, if there is something going on that is not answered by anything of what is mentioned above, simply drop me an email on github@tijnkuyper.nl. I'll get back to you as soon as I can.
