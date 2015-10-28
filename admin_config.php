@@ -82,56 +82,47 @@ class wrapper_ui extends e_admin_ui
 	
 		public function init()
 		{
-			// Set drop-down values (if any). 
-	
 		}
 
-		
 		// ------- Customize Create --------
-		
 		public function beforeCreate($new_data)
 		{
-			return $new_data;
 		}
 	
 		public function afterCreate($new_data, $old_data, $id)
 		{
-			// do something
 		}
 
 		public function onCreateError($new_data, $old_data)
 		{
-			// do something		
 		}		
 		
 		// ------- Customize Update --------
 		public function beforeUpdate($new_data, $old_data, $id)
 		{
-			return $new_data;
 		}
 
 		public function afterUpdate($new_data, $old_data, $id)
 		{
-			// do something	
 		}
 		
 		public function onUpdateError($new_data, $old_data, $id)
 		{
-			// do something		
 		}		
-				
-	/*	
+	
+		/*
 		// optional - a custom page.  
 		public function customPage()
 		{
 			$text = 'Hello World!';
 			return $text;
-			
 		}
-	*/
+		*/
+	
 
 	public function renderHelp()
 	{
+		// documentation
 	  	$find    = array('[', ']');
       	$replace = array('<a href="https://github.com/Moc/wrapper/wiki" target="_blank">', '</a>');
      	$text    = str_replace($find, $replace, LAN_WRAPPER_HELP);
@@ -140,13 +131,11 @@ class wrapper_ui extends e_admin_ui
 			'caption'	=> "Help",
 			'text'		=> $text,
 		);
-	}
-			
+	}		
 }
 				
 class wrapper_form_ui extends e_admin_form_ui
 {
-
 }			
 		
 new wrapper_adminArea();
