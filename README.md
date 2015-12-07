@@ -1,9 +1,9 @@
 # Wrapper #
 Wrapper allows you to easily integrate external pages into your website. This is done by using an iframe. The advantage of this plugin is that it allows non-technical users to use iframes as well. Obviously, tech-savy users can just directly use a standalone custom page (among other options).
 
-It is plugin is based on the "Wrap" plugin which was released early 2004, with its latest update dating back to 2006 (version 0.9.2). See credits below.
+It is based on the "Wrap" plugin which was released early 2004, with its latest update dating back to 2006 (version 0.9.2). See credits below.
 
-Wrapper aims to provide the same functionaliy using the newest e107 standards as well as current browser standards. It is therefore specifically designed to work with e107 v2.x and, in fact, it will not work on e107 v1.x.
+Wrapper aims to provide the same functionality using the newest e107 standards as well as current browser standards. It is therefore specifically designed to work with e107 v2.x and, in fact, the plugin will not work on e107 v1.x.
 
 ## How to get help? ##
 
