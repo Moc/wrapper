@@ -9,6 +9,9 @@
  */
 
 require_once('../../class2.php');
+
+e107::lan('wrapper', 'admin', true);
+
 if (!getperms('P'))
 {
 	header('location:'.e_BASE.'index.php');
