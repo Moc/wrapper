@@ -8,7 +8,10 @@
  *
  */
 
-require_once("../../class2.php");
+if (!defined('e107_INIT'))
+{
+	require_once("../../class2.php");
+}
 
 // Make this page inaccessible when plugin is not installed.
 if (!e107::isInstalled('wrapper'))

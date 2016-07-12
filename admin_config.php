@@ -89,9 +89,22 @@ class wrapper_ui extends e_admin_ui
 
 			if($action == 'edit')
 			{
-				$url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
-				$link = '<a href="'.$url.'">'.$url.'</a>';
-				e107::getMessage()->addInfo(LAN_WRAPPER_INFOMESSAGE.": ".$link);
+				$title 	 	= e107::getDb()->retrieve('wrapper', 'wrapper_title', 'wrapper_id='.$id);
+				$sef_title 	= eHelper::title2sef($title); 
+		        
+		        $urlparms = array(
+		            'wrapper_id' 	=> $id,
+		            'wrapper_name'  => $sef_title,
+		        );
+
+		        $url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
+		        $sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
+				
+				$link 		= '<a href="'.$url.'">'.$url.'</a>';
+				$sef_link 	= '<a href="'.$sef_url.'">'.$sef_url.'</a>';
+
+				$urltext = e107::getParser()->lanVars(LAN_WRAPPER_URL, array($link, $sef_link));
+				e107::getMessage()->addInfo($urltext);
 			}
 		}
 

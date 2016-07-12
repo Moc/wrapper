@@ -20,6 +20,6 @@ define("LAN_WRAPPER_WIDTH_HELP", 	"The width of the frame. Leave empty or enter 
 define("LAN_WRAPPER_SCROLLBARS_HELP", "If enabled, the frame will have scrollbars if applicable. If disabled, all scrollbars are hidden.");
 define("LAN_WRAPPER_USERCLASS_HELP", "Select the userclass that is allowed to access this wrapper.");
 
-define("LAN_WRAPPER_INFOMESSAGE", "The Wrapper URL for this Wrapper is");
+define("LAN_WRAPPER_URL", "The URL for this Wrapper is [x] or [y]");
 
 define("LAN_WRAPPER_HELP", "Please refer to the [documentation] for any question that you may have."); // Brackets create the link, do not edit!
