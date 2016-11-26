@@ -24,7 +24,7 @@ if (!e107::isInstalled('wrapper'))
 e107::lan('wrapper', false, true); 
 require_once(e_PLUGIN."wrapper/wrapper_class.php");
 
-$caption = "Wrapper";
+$caption = '';
 $error = '';
 $id = '';
 $wrap_pass = '';
@@ -35,6 +35,7 @@ require_once(HEADERF);
 list($id, $wrap_pass) = explode('&amp;wrap_pass=', e_QUERY, 2);
 
 $wrapper = new Wrapper(); 
+$caption = $wrapper->getTitle($id);
 $text = $wrapper->showWrapper($id, $wrap_pass);
 
 // Render the text
