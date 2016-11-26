@@ -115,9 +115,21 @@ class wrapper_ui extends e_admin_ui
 
 		public function afterCreate($new_data, $old_data, $id)
 		{
+			$title 	 	= $new_data['wrapper_title'];
+			$sef_title 	= eHelper::title2sef($title); 
+		        
+			$urlparms = array(
+			    'wrapper_id' 	=> $id,
+			    'wrapper_name'  => $sef_title,
+			);
+
 			$url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
-			$link = '<a href="'.$url.'">'.$url.'</a>';
-			e107::getMessage()->addSuccess(LAN_WRAPPER_INFOMESSAGE.": ".$link);
+			$sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
+				
+			$link 		= '<a href="'.$url.'">'.$url.'</a>';
+			$sef_link 	= '<a href="'.$sef_url.'">'.$sef_url.'</a>';
+			$urltext = e107::getParser()->lanVars(LAN_WRAPPER_URL, array($link, $sef_link));
+			e107::getMessage()->addSuccess($urltext);	
 		}
 
 		public function onCreateError($new_data, $old_data)
