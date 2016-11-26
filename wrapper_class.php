@@ -10,6 +10,13 @@
 
 class Wrapper
 {
+	public function getTitle($id)
+	{
+		$id = (int) $id; 
+		$title = e107::getDb()->retrieve('wrapper', 'wrapper_title', 'wrapper_id='.$id);
+		return $title;
+	}
+
 	public function showWrapper($id, $pass)
 	{
 		// Secure user input
