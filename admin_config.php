@@ -2,7 +2,7 @@
 /*
  * Wrapper - an e107 plugin by Tijn Kuyper
  *
- * Copyright (C) 2015-2016 Tijn Kuyper (http://www.tijnkuyper.nl)
+ * Copyright (C) 2016-2017 Tijn Kuyper (http://www.tijnkuyper.nl)
  * Released under the terms and conditions of the
  * GNU General Public License (http://www.gnu.org/licenses/gpl.txt)
  *
@@ -67,8 +67,8 @@ class wrapper_ui extends e_admin_ui
 		  'wrapper_id' 			=>  array ( 'title' => LAN_ID, 		'data' => 'int', 'width' => '5%', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'wrapper_title' 		=>  array ( 'title' => LAN_TITLE, 	'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => LAN_WRAPPER_TITLE_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'wrapper_url' 		=>  array ( 'title' => LAN_URL, 	'type' => 'url', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'validate' => true, 'help' => LAN_WRAPPER_URL_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'wrapper_height'		=>  array ( 'title' => LAN_WRAPPER_HEIGHT, 'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => LAN_WRAPPER_HEIGHT_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'wrapper_width' 		=>  array ( 'title' => LAN_WRAPPER_WIDTH, 'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => LAN_WRAPPER_WIDTH_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_height'		=>  array ( 'title' => LAN_WRAPPER_HEIGHT, 'type' => 'number', 'data' => 'int', 'width' => 'auto', 'inline' => true, 'help' => LAN_WRAPPER_HEIGHT_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'wrapper_width' 		=>  array ( 'title' => LAN_WRAPPER_WIDTH, 'type' => 'number', 'data' => 'int', 'width' => 'auto', 'inline' => true, 'help' => LAN_WRAPPER_WIDTH_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  //'wrapper_auto_height' =>  array ( 'title' => 'Auto height', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => 'Let the plugin choose the appropriate height', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'wrapper_scrollbars' 	=>  array ( 'title' => LAN_WRAPPER_SCROLLBARS, 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' =>  LAN_WRAPPER_SCROLLBARS_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'wrapper_userclass'	=>  array ( 'title' => LAN_USERCLASS, 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 'inline' => true, 'filter' => true, 'help' => LAN_WRAPPER_USERCLASS_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
@@ -118,13 +118,13 @@ class wrapper_ui extends e_admin_ui
 			$title 	 	= $new_data['wrapper_title'];
 			$sef_title 	= eHelper::title2sef($title); 
 		        
-			$urlparms = array(
-			    'wrapper_id' 	=> $id,
-			    'wrapper_name'  => $sef_title,
-			);
-
-			$url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
-			$sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
+	        $urlparms = array(
+	            'wrapper_id' 	=> $id,
+	            'wrapper_name'  => $sef_title,
+	       	);
+	        
+	        $url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
+	        $sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
 				
 			$link 		= '<a href="'.$url.'">'.$url.'</a>';
 			$sef_link 	= '<a href="'.$sef_url.'">'.$sef_url.'</a>';
