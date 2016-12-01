@@ -15,8 +15,8 @@ define("LAN_WRAPPER_SCROLLBARS","Scrollbars");
 // HELP
 define("LAN_WRAPPER_TITLE_HELP", 	"The title of the page (not required)");
 define("LAN_WRAPPER_URL_HELP", 		"The URL of the external page you want to include.");
-define("LAN_WRAPPER_HEIGHT_HELP", 	"The height of the frame. Leave empty or enter 0 for fullscreen.");
-define("LAN_WRAPPER_WIDTH_HELP", 	"The width of the frame. Leave empty or enter 0 for fullscreen.");
+define("LAN_WRAPPER_HEIGHT_HELP", 	"The height of the frame in pixels. Leave empty or enter 0 for fullscreen.");
+define("LAN_WRAPPER_WIDTH_HELP", 	"The width of the frame in pixels. Leave empty or enter 0 for fullscreen.");
 define("LAN_WRAPPER_SCROLLBARS_HELP", "If enabled, the frame will have scrollbars if applicable. If disabled, all scrollbars are hidden.");
 define("LAN_WRAPPER_USERCLASS_HELP", "Select the userclass that is allowed to access this wrapper.");
 
