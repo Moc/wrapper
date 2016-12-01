@@ -41,27 +41,38 @@ class Wrapper
 		// Convert scrollbars DB value to HTML values used in iframe tag
 		$scrollbars = ($wrapper_query['wrapper_scrollbars'] == 1 ? 'yes' : 'no');
 
-		// Check if width and/or wrapper height is set
-		if(
-			isset($wrapper_query['wrapper_width']) ||
-			isset($wrapper_query['wrapper_height']) ||
-			(isset($wrapper_query['wrapper_height']) && isset($wrapper_query['wrapper_width']))
-		  )
+		//print_a("w: ".$wrapper_query['wrapper_width']." h:".$wrapper_query['wrapper_height']);
+		
+		// Specific values set for width and height, nothing special needed
+		if($wrapper_query['wrapper_width'] != 0 && $wrapper_query['wrapper_height'] != 0)
 		{
-			// Set default width and height, if they are not already defined
-			$width  = varsettrue($wrapper_query['wrapper_width'], "100%");
-			$height = varsettrue($wrapper_query['wrapper_height'], "800");
-
-			$iframe = "<iframe src='".$wrapper_query['wrapper_url'].$wrap_pass."' width='".$width."' height='".$height."' scrolling='".$scrollbars."' frameborder='0'></iframe>";
-		}
-		// No width and height set, display the iframe fullscreen
-		else
-		{
-			$width  = $wrapper_query['wrapper_width'];
+			$width = $wrapper_query['wrapper_width'];
 			$height = $wrapper_query['wrapper_height'];
-			$iframe = "<iframe src='".$wrapper_query['wrapper_url'].$wrap_pass."' width='100%' style='height: 100em;' scrolling='".$scrollbars."' frameborder='0'></iframe>";
+
+			$size = "width='".$width."' height='".$height."'"; 
 		}
 
-		return $iframe; 
+		// Width = fullscreen, Height = specific 
+		if($wrapper_query['wrapper_width'] == 0 && $wrapper_query['wrapper_height'] !== 0)
+		{
+			$size = "width='100%' height='".$wrapper_query['wrapper_height']."'";
+		}
+
+		// Width = specific, Height = fullscreen 
+		if($wrapper_query['wrapper_width'] == 0 && $wrapper_query['wrapper_height'] !== 0)
+		{
+			$size = "width='".$wrapper_query['wrapper_width']."' style='height: 100em;'";
+		}
+
+		// Completely fullscreen
+		if($wrapper_query['wrapper_width'] == 0 && $wrapper_query['wrapper_height'] == 0)
+		{
+			$size = "width='100%' style='height: 100em;'";
+		}
+
+
+		$iframe = "<iframe src='".$wrapper_query['wrapper_url'].$wrap_pass."' ".$size." scrolling='".$scrollbars."' frameborder='0'></iframe>";
+
+		return $iframe;
 	}
 }
