@@ -10,7 +10,7 @@
 
 require_once('../../class2.php');
 
-e107::lan('wrapper', 'admin', true);
+e107::lan('wrapper', true, true);
 
 if (!getperms('P'))
 {
