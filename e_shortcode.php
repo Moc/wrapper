@@ -15,7 +15,8 @@ class wrapper_shortcodes extends e_shortcode
 
 	function __construct()
 	{
-		include_lan(e_PLUGIN.'wrapper/languages/'.e_LANGUAGE.'_front.php');
+		//include_lan(e_PLUGIN.'wrapper/languages/'.e_LANGUAGE.'/'.e_LANGUAGE.'_front.php');
+		e107::lan('wrapper', false, true);
 	}
 
 	function sc_wrapper($parm='')
