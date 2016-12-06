@@ -10,6 +10,6 @@
 	<category>content</category>
 	<copyright>2016</copyright>
 	<adminLinks>
-		<link url="admin_config.php" description="" icon="images/icons/wrapper_32.png" iconSmall="images/icons/wrapper_16.png" primary="true">LAN_CONFIGURE</link>
+		<link url="admin_config.php" description="" icon="images/icons/wrapper_32.png" iconSmall="images/icons/wrapper_16.png" icon128="images/icons/wrapper_128.png" primary="true">LAN_CONFIGURE</link>
 	</adminLinks>	
 </e107Plugin>
