@@ -34,20 +34,19 @@ class wrapper_adminArea extends e_admin_dispatcher
 	protected $adminMenu = array(
 		'main/list'			=> array('caption'=> LAN_MANAGE, 'perm' => 'P'),
 		'main/create'		=> array('caption'=> LAN_CREATE, 'perm' => 'P'),
-		// 'main/custom'		=> array('caption'=> 'Custom Page', 'perm' => 'P')
 	);
 
 	protected $adminMenuAliases = array(
 		'main/edit'	=> 'main/list'
 	);
 
-	protected $menuTitle = 'Wrapper';
+	protected $menuTitle = LAN_WRAPPER_NAME;
 }
 
 
 class wrapper_ui extends e_admin_ui
 {
-		protected $pluginTitle		= 'Wrapper';
+		protected $pluginTitle		= LAN_WRAPPER_NAME;
 		protected $pluginName		= 'wrapper';
 	//	protected $eventName		= 'wrapper-wrapper'; // remove comment to enable event triggers in admin.
 		protected $table			= 'wrapper';
@@ -100,8 +99,8 @@ class wrapper_ui extends e_admin_ui
 		        $url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
 		        $sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
 				
-				$link 		= '<a href="'.$url.'">'.$url.'</a>';
-				$sef_link 	= '<a href="'.$sef_url.'">'.$sef_url.'</a>';
+				$link 		= '<a target="_blank" href="'.$url.'">'.$url.'</a>';
+				$sef_link 	= '<a target="_blank" href="'.$sef_url.'">'.$sef_url.'</a>';
 
 				$urltext = e107::getParser()->lanVars(LAN_WRAPPER_URL, array($link, $sef_link));
 				e107::getMessage()->addInfo($urltext);
@@ -126,8 +125,8 @@ class wrapper_ui extends e_admin_ui
 	        $url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
 	        $sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
 				
-			$link 		= '<a href="'.$url.'">'.$url.'</a>';
-			$sef_link 	= '<a href="'.$sef_url.'">'.$sef_url.'</a>';
+			$link 		= '<a target="_blank" href="'.$url.'">'.$url.'</a>';
+			$sef_link 	= '<a target="_blank" href="'.$sef_url.'">'.$sef_url.'</a>';
 			$urltext = e107::getParser()->lanVars(LAN_WRAPPER_URL, array($link, $sef_link));
 			e107::getMessage()->addSuccess($urltext);	
 		}
@@ -148,15 +147,7 @@ class wrapper_ui extends e_admin_ui
 		public function onUpdateError($new_data, $old_data, $id)
 		{
 		}
-
-		/*
-		// optional - a custom page.
-		public function customPage()
-		{
-			$text = 'Hello World!';
-			return $text;
-		}
-		*/
+		
 
 	public function renderHelp()
 	{
@@ -166,7 +157,7 @@ class wrapper_ui extends e_admin_ui
      	$text    = str_replace($find, $replace, LAN_WRAPPER_HELP);
 
 		return array(
-			'caption'	=> "Help",
+			'caption'	=> LAN_HELP,
 			'text'		=> $text,
 		);
 	}
