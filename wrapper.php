@@ -29,16 +29,22 @@ $error = '';
 $id = '';
 $wrap_pass = '';
 
-require_once(HEADERF);
+// Initiate the wrapper class; 
+$wrapper = new Wrapper(); 
 
 // Retrieve query and check for wrap_pass
 list($id, $wrap_pass) = explode('&amp;wrap_pass=', e_QUERY, 2);
 
-$wrapper = new Wrapper(); 
-$caption = $wrapper->getTitle($id);
+// Set caption
+$title = $wrapper->getTitle($id);
+$caption = empty($title) ? 'Wrapper' : $title; 
+define('e_PAGETITLE', $caption); 
+
+// Render the page
+require_once(HEADERF);
+
 $text = $wrapper->showWrapper($id, $wrap_pass);
 
-// Render the text
 $ns->tablerender($caption, e107::getMessage()->render().$text);
 require_once(FOOTERF);
 exit;
