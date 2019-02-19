@@ -27,5 +27,8 @@ Specifically, I would like to credit the following authors who worked on the ori
 
 Please **do not** contact any of the previously mentioned authors for support with this plugin as they cannot assist you.
 
+## Changelog ##
+See the **releases** section [here](https://github.com/Moc/wrapper/releases)
+
 ## Anything else? ##
 Seriously?! :) Well, if there is something going on that is not answered by anything of what is mentioned above, simply drop me an email on e107@tijnkuyper.nl. I'll get back to you as soon as I can.
