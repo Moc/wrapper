@@ -2,7 +2,7 @@
 /*
  * Wrapper - an e107 plugin by Tijn Kuyper
  *
- * Copyright (C) 2016-2017 Tijn Kuyper (http://www.tijnkuyper.nl)
+ * Copyright (C) 2016-2021 Tijn Kuyper (http://www.tijnkuyper.nl)
  * Released under the terms and conditions of the
  * GNU General Public License (http://www.gnu.org/licenses/gpl.txt)
  *
@@ -15,7 +15,6 @@ class wrapper_shortcodes extends e_shortcode
 
 	function __construct()
 	{
-		//include_lan(e_PLUGIN.'wrapper/languages/'.e_LANGUAGE.'/'.e_LANGUAGE.'_front.php');
 		e107::lan('wrapper', false, true);
 	}
 
