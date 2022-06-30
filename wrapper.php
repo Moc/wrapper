@@ -44,7 +44,8 @@ define('e_PAGETITLE', $caption);
 require_once(HEADERF);
 
 $text = $wrapper->showWrapper($id, $wrap_pass);
-$ns->tablerender($caption, e107::getMessage()->render().$text);
+ 
+e107::getRender()->tablerender($caption, e107::getMessage()->render().$text );
 
 require_once(FOOTERF);
 exit;
