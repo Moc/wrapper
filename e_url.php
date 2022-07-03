@@ -15,19 +15,20 @@ if(!defined('e107_INIT'))
 
 class wrapper_url
 {
-
 	function config()
 	{
 		$config = array();
 
 		// Wrapper with title or ID
 		$config['wrapper_id'] = array(
+			// Set customisable alias instead of 'wrapper'
+			'alias' 	=> 'wrapper',
 			// Matched against url, and if true, redirected to 'redirect' below.
-			'regex'    => '^wrapper/(.*)$',
+			'regex'		=> '^{alias}/(.*)$',
 			// {wrapper_id} is substituted with database value when parsed by e107::url();
-			'sef'      => 'wrapper/{wrapper_id}/{wrapper_name}',
+			'sef'		=> '{alias}/{wrapper_id}/{wrapper_name}',
 			// File-path of what to load when the regex returns true.
-			'redirect' => '{e_PLUGIN}wrapper/wrapper.php?$1'
+			'redirect'	=> '{e_PLUGIN}wrapper/wrapper.php?$1'
 		);
 
 		return $config;
