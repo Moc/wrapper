@@ -13,4 +13,4 @@
 define("LAN_WRAPPER_ERR1", "A keret ID nem található! Kérjük, ellenőrizze az URL-t vagy a shortcode helyességét!"); 
 define("LAN_WRAPPER_ERR2", "Érvénytelen keret ID! Kérjük, ellenőrizze az URL-t vagy a shortcode helyességét!"); 
 define("LAN_WRAPPER_ERR3", "Ön nem jogosult az oldal megtekintésére!");
-?>
+define("LAN_WRAPPER_ERR4", "A keret nem aktív!"); 

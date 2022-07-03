@@ -44,6 +44,17 @@ class Wrapper
 			else return $desc_message;
 		}
 
+		// Check if active
+		if(!$wrapper_query['wrapper_active'])
+		{
+			$disabled_message  = e107::getParser()->toHTML(e107::pref('wrapper', 'message_disabled')); 
+			$desc_message = vartrue($disabled_message, $desc_message);
+
+			if(e_DEBUG) 
+			return e107::getMessage()->addError(LAN_WRAPPER_ERR4)->render().$desc_message; 
+			else return $desc_message;
+		}
+
 		// Convert scrollbars DB value to HTML values used in iframe tag
 		$scrollbars = ($wrapper_query['wrapper_scrollbars'] == 1 ? 'yes' : 'no');
 
