@@ -71,7 +71,7 @@ class Wrapper
 		}
 
 
-		$iframe = "<iframe src='".$wrapper_query['wrapper_url'].$wrap_pass."' ".$size." scrolling='".$scrollbars."' frameborder='0'></iframe>";
+		$iframe = "<iframe id='wrapper-".$wrapper_query['wrapper_id']."' src='".$wrapper_query['wrapper_url'].$wrap_pass."' ".$size." scrolling='".$scrollbars."' frameborder='0'></iframe>";
 
 		return $iframe;
 	}
