@@ -34,6 +34,7 @@ class wrapper_adminArea extends e_admin_dispatcher
 	protected $adminMenu = array(
 		'main/list'			=> array('caption'=> LAN_MANAGE, 'perm' => 'P'),
 		'main/create'		=> array('caption'=> LAN_CREATE, 'perm' => 'P'),
+		'main/prefs'		=> array('caption'=> LAN_PREFS, 'perm' => 'P'),
 	);
 
 	protected $adminMenuAliases = array(
@@ -171,8 +172,32 @@ class wrapper_ui extends e_admin_ui
 		protected $fieldpref = array('wrapper_id', 'wrapper_title', 'wrapper_url', 'wrapper_height', 'wrapper_width', 'wrapper_scrollbars', 'wrapper_userclass');
 		
 
-		//	protected $preftabs = array('General', 'Other' );
+	    protected $preftabs = array('Frontpage', 'Other' );
 		protected $prefs = array(
+			'plugin_title' => array( 
+				'title' 	 => LAN_TITLE,
+				'type' 		 => 'text', 
+				'data' 		 => 'str', 
+				'width'  	 => 'auto', 
+				'inline'  	 => true, 
+				'help'  	 => "Displayed when there is not wrapper - frontpage or wrong ID", 
+				'readParms'  => '', 
+				'writeParms' => array('size'=>'xxlarge'), 
+				'class' 	 => 'left', 
+				'thclass' 	 => 'left',  
+			),
+			'plugin_desc' => array( 
+				'title' 	 => LAN_DESCRIPTION,
+				'type' 		 => 'textarea', 
+				'data' 		 => 'str', 
+				'width'  	 => 'auto', 
+				'inline'  	 => true, 
+				'help'  	 => "Displayed when there is not wrapper - frontpage or wrong ID. With debug mode the error is displayed too.", 
+				'readParms'  => '', 
+				'writeParms' => array('size'=>'xxlarge'), 
+				'class' 	 => 'left', 
+				'thclass' 	 => 'left',  
+				),
 		);
 
 		public function init()
@@ -184,14 +209,14 @@ class wrapper_ui extends e_admin_ui
 			{
 				$title 	 	= e107::getDb()->retrieve('wrapper', 'wrapper_title', 'wrapper_id='.$id);
 				$sef_title 	= eHelper::title2sef($title); 
-		        
-		        $urlparms = array(
-		            'wrapper_id' 	=> $id,
-		            'wrapper_name'  => $sef_title,
-		        );
 
-		        $url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
-		        $sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
+				$urlparms = array(
+					'wrapper_id' 	=> $id,
+					'wrapper_name'  => $sef_title,
+				);
+
+				$url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
+				$sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
 				
 				$link 		= '<a target="_blank" href="'.$url.'">'.$url.'</a>';
 				$sef_link 	= '<a target="_blank" href="'.$sef_url.'">'.$sef_url.'</a>';
@@ -210,14 +235,14 @@ class wrapper_ui extends e_admin_ui
 		{
 			$title 	 	= $new_data['wrapper_title'];
 			$sef_title 	= eHelper::title2sef($title); 
-		        
-	        $urlparms = array(
-	            'wrapper_id' 	=> $id,
-	            'wrapper_name'  => $sef_title,
-	       	);
-	        
-	        $url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
-	        $sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
+
+			$urlparms = array(
+				'wrapper_id' 	=> $id,
+				'wrapper_name'  => $sef_title,
+			);
+
+			$url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
+			$sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
 				
 			$link 		= '<a target="_blank" href="'.$url.'">'.$url.'</a>';
 			$sef_link 	= '<a target="_blank" href="'.$sef_url.'">'.$sef_url.'</a>';
@@ -246,9 +271,9 @@ class wrapper_ui extends e_admin_ui
 	public function renderHelp()
 	{
 		// documentation
-	  	$find    = array('[', ']');
-      	$replace = array('<a href="https://github.com/Moc/wrapper/wiki" target="_blank">', '</a>');
-     	$text    = str_replace($find, $replace, LAN_WRAPPER_HELP);
+		$find    = array('[', ']');
+		$replace = array('<a href="https://github.com/Moc/wrapper/wiki" target="_blank">', '</a>');
+		$text    = str_replace($find, $replace, LAN_WRAPPER_HELP);
 
 		return array(
 			'caption'	=> LAN_HELP,

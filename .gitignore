@@ -1,3 +1,4 @@
 # Ignore PhpStorm IDE files
 .idea
 .project
+.editorconfig

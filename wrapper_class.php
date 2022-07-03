@@ -23,10 +23,14 @@ class Wrapper
 		$id = (int) $id; 
 		$wrap_pass = $pass;
 
+		$desc_message  = e107::getParser()->toHTML(e107::pref('wrapper', 'plugin_desc'));
+
 		// Check for ID validity - display error if ID is not found in the database
 		if(!e107::getDb()->select("wrapper", "*", "wrapper_id='$id'"))
 		{
-			return e107::getMessage()->addError(LAN_WRAPPER_ERR2)->render();
+			if(e_DEBUG) 
+			return e107::getMessage()->addError(LAN_WRAPPER_ERR2)->render().$desc_message;
+			else return $desc_message;
 		}
 
 		// Wrapper exists - get all the info
@@ -35,7 +39,9 @@ class Wrapper
 		// Check for userclass access
 		if(!check_class($wrapper_query['wrapper_userclass']))
 		{
-			return e107::getMessage()->addError(LAN_WRAPPER_ERR3)->render(); 
+			if(e_DEBUG) 
+			return e107::getMessage()->addError(LAN_WRAPPER_ERR3)->render().$desc_message; 
+			else return $desc_message;
 		}
 
 		// Convert scrollbars DB value to HTML values used in iframe tag
