@@ -28,20 +28,18 @@ $caption 	= '';
 $error 		= '';
 $id 		= '';
 $wrap_pass 	= '';
-
-// Initiate the wrapper class; 
-$wrapper = new Wrapper(); 
-
+ 
 // Retrieve query and check for wrap_pass
 list($id, $wrap_pass) = explode('&amp;wrap_pass=', e_QUERY, 2);
 
+$id = (int) $id; 
+
+// Initiate the wrapper class; 
+$wrapper = new Wrapper($id);
+ 
 // Set caption
-$title 	 = $wrapper->getTitle($id);
-if(empty($title)) {
-    $caption = e107::pref('wrapper', 'plugin_title'); 
-    $caption = varset($caption, LAN_WRAPPER_NAME); 
-}
-$caption = varset($title, $caption); ; 
+$caption 	 = $wrapper->getTitle($id);    
+  
 define('e_PAGETITLE', $caption); 
 
 // Render the page

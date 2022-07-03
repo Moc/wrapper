@@ -169,6 +169,8 @@ class wrapper_ui extends e_admin_ui
 			  	'class' 	 => 'left', 
 			  	'thclass' 	 => 'left',  
 		  ),
+		  'wrapper_options' => array('title' => '', 'tab' => 0, 'type' => 'method', 'data' => 'json',
+		  'width' => '38%', 'help' => '', 'readParms' => '', 'writeParms' => array("nolabel" => 1), 'class' => 'left', 'thclass' => 'left'),
 		  'options' => array( 
 			  	'title' 	=> LAN_OPTIONS, 
 			  	'type' 		=> null, 
@@ -221,6 +223,18 @@ class wrapper_ui extends e_admin_ui
 				'class' 	 => 'left', 
 				'thclass' 	 => 'left',  
 				),
+			'message_restricted' => array( 
+					'title' 	 => "Custom message for restricted access",
+					'type' 		 => 'textarea', 
+					'data' 		 => 'str', 
+					'width'  	 => 'auto', 
+					'inline'  	 => true, 
+					'help'  	 => "For user without access, it overrides description message f.e. - You need to be member to see this content", 
+					'readParms'  => '', 
+					'writeParms' => array('size'=>'xxlarge'), 
+					'class' 	 => 'left', 
+					'thclass' 	 => 'left',  
+					),		
 		);
 
 		public function init()
@@ -307,6 +321,76 @@ class wrapper_ui extends e_admin_ui
 
 class wrapper_form_ui extends e_admin_form_ui
 {
+	public function wrapper_options($curVal, $mode)
+	{
+		$value = array();
+
+		if (!empty($curVal))
+		{
+			$value = e107::unserialize($curVal);
+		}
+
+		switch ($mode)
+		{
+		case 'read': // with no label it can't be displayed as user column, let this here if they fix it
+			$text = "only in edit mode";
+			return $text;
+			break;
+
+		case 'write': // Edit Page
+
+			$fields = array(
+				"display_title" => array(
+					'title' => 'Display title for this wrapper.',
+					'type' => 'boolean',
+					'inuse' => true,
+					'help' => 'If wrapped content has its own title, you can hide title added by plugin',
+					'writeParms' => array('size' => 'xxlarge'),
+				)
+			);
+			//warning: 'writeParms' => array('size' => 'xxlarge', 'default'=>1), - it overrides saved value, bug?
+			$text = $this->getFields('wrapper_options', $fields, $value);
+			return $text;
+			break;
+		}
+
+	}
+
+	private function getFields($name = '',  $settings = array(), $value = array())
+	{
+		if ($name == '')
+		{
+			return '';
+		}
+ 
+		$text = "<table class='table table-condensed table-bordered'  style='table-layout: fixed;' ><tbody> ";
+		 
+		$textremove = '';
+  
+		if ($settings > 0)
+		{
+			$nameitem = $name;
+			foreach ($settings as $fieldkey => $field)
+			{
+				if ($field['inuse'])
+				{
+					$actual_value = isset($value[$fieldkey]) ? $value[$fieldkey]: '';
+ 
+					$text .= "<tr><td>" . $field['title'] . ": </td><td>";
+					$text .= $this->renderElement($nameitem . '[' . $fieldkey . ']', $actual_value, $field);
+					$text .= "</td></tr>";
+				}
+				else
+				{
+					$textremove .= "<input type='hidden' name=" . $nameitem . '[' . $fieldkey . ']' . "  value=''  title=''>";
+				}
+			}
+		}
+ 
+		$text .= "<input type='hidden' name=" . $name . '[' . $fieldkey . ']' . "  value=''  title=''>";
+		return $text . $textremove;
+	}
+
 }
 
 new wrapper_adminArea();

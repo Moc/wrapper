@@ -16,5 +16,6 @@
 		<pref name="plugin_title"></pref>
 		<pref name="plugin_desc"></pref>
 		<pref name="message_disabled"></pref>
+        <pref name="message_restricted"></pref>
 	</pluginPrefs>
 </e107Plugin>
