@@ -7,5 +7,6 @@ CREATE TABLE `wrapper` (
 	`wrapper_scrollbars` tinyint(3) unsigned NOT NULL DEFAULT '1',
 	`wrapper_userclass` tinyint(3) unsigned NOT NULL DEFAULT '0',
 	`wrapper_active` tinyint(1) unsigned NOT NULL DEFAULT '1',
+	`wrapper_options` text NOT NULL,
   PRIMARY KEY (`wrapper_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
