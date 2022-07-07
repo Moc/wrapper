@@ -12,3 +12,4 @@
 define("LAN_WRAPPER_ERR1", "No Wrapper ID was found, please verify the URL or shortcode is correct!"); 
 define("LAN_WRAPPER_ERR2", "Invalid Wrapper ID, please verify the URL or shortcode is correct!"); 
 define("LAN_WRAPPER_ERR3", "You are not allowed to view this page!"); 
+define("LAN_WRAPPER_ERR4", "This Wrapper is currently not active."); 

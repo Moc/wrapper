@@ -157,6 +157,17 @@ class wrapper_ui extends e_admin_ui
 			  	'class' 	 => 'left', 
 			  	'thclass' 	 => 'left',  
 		  ),
+		  'wrapper_active' => array( 
+				'title'  	 => LAN_ACTIVE, 
+				'type' 		 => 'boolean', 
+				'data' 		 => 'int', 
+				'width' 	 => 'auto', 
+				'help' 		 =>  LAN_WRAPPER_ACTIVE_HELP, 
+				'readParms'  => '', 
+				'writeParms' => '', 
+				'class' 	 => 'left', 
+				'thclass' 	 => 'left',  
+			),
 		  'options' => array( 
 			  	'title' 	=> LAN_OPTIONS, 
 			  	'type' 		=> null, 

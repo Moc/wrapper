@@ -38,6 +38,12 @@ class Wrapper
 			return e107::getMessage()->addError(LAN_WRAPPER_ERR3)->render(); 
 		}
 
+		// Check for userclass access
+		if(!$wrapper_query['wrapper_active'])
+		{
+			return e107::getMessage()->addError(LAN_WRAPPER_ERR4)->render(); 
+		}
+
 		// Convert scrollbars DB value to HTML values used in iframe tag
 		$scrollbars = ($wrapper_query['wrapper_scrollbars'] == 1 ? 'yes' : 'no');
 
