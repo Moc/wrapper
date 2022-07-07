@@ -2,7 +2,7 @@
 /*
  * Wrapper - an e107 plugin by Tijn Kuyper
  *
- * Copyright (C) 2016-2021 Tijn Kuyper (http://www.tijnkuyper.nl)
+ * Copyright (C) 2016-2022 Tijn Kuyper (http://www.tijnkuyper.nl)
  * Released under the terms and conditions of the
  * GNU General Public License (http://www.gnu.org/licenses/gpl.txt)
  *
@@ -27,6 +27,7 @@ class wrapper_shortcodes extends e_shortcode
 
 		$wrapper = new Wrapper(); 
 		$wrapper = $wrapper->showWrapper($id, $pass);
+		
 		return $wrapper;
 	}
 }

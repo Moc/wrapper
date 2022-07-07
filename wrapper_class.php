@@ -2,7 +2,7 @@
 /*
  * Wrapper - an e107 plugin by Tijn Kuyper
  *
- * Copyright (C) 2015-2021 Tijn Kuyper (http://www.tijnkuyper.nl)
+ * Copyright (C) 2015-2022 Tijn Kuyper (http://www.tijnkuyper.nl)
  * Released under the terms and conditions of the
  * GNU General Public License (http://www.gnu.org/licenses/gpl.txt)
  *
@@ -52,10 +52,10 @@ class Wrapper
 		// Specific values set for width and height, nothing special needed
 		if($wrapper_query['wrapper_width'] != 0 && $wrapper_query['wrapper_height'] != 0)
 		{
-			$width = $wrapper_query['wrapper_width'];
+			$width 	= $wrapper_query['wrapper_width'];
 			$height = $wrapper_query['wrapper_height'];
 
-			$size = "width='".$width."' height='".$height."'"; 
+			$size 	= "width='".$width."' height='".$height."'"; 
 		}
 
 		// Width = fullscreen, Height = specific 
