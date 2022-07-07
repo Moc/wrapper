@@ -201,13 +201,14 @@ class wrapper_ui extends e_admin_ui
 		            'wrapper_name'  => $sef_title,
 		        );
 
-		        $url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
-		        $sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
+		        $url 		= SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
+		        $sef_url 	= e107::url('wrapper', 'wrapper_id', $urlparms, 'full');
 				
 				$link 		= '<a target="_blank" href="'.$url.'">'.$url.'</a>';
 				$sef_link 	= '<a target="_blank" href="'.$sef_url.'">'.$sef_url.'</a>';
 
-				$urltext = e107::getParser()->lanVars(LAN_WRAPPER_URL, array($link, $sef_link));
+				$urltext 	= e107::getParser()->lanVars(LAN_WRAPPER_URL, array($link, $sef_link));
+
 				e107::getMessage()->addInfo($urltext);
 			}
 		}
@@ -227,12 +228,14 @@ class wrapper_ui extends e_admin_ui
 	            'wrapper_name'  => $sef_title,
 	       	);
 	        
-	        $url = SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
-	        $sef_url = SITEURLBASE.e107::url('wrapper', 'wrapper_id', $urlparms);
+	        $url 		= SITEURLBASE.e_PLUGIN_ABS."wrapper/wrapper.php?".$id;
+	        $sef_url 	= e107::url('wrapper', 'wrapper_id', $urlparms, 'full');
 				
 			$link 		= '<a target="_blank" href="'.$url.'">'.$url.'</a>';
 			$sef_link 	= '<a target="_blank" href="'.$sef_url.'">'.$sef_url.'</a>';
+			
 			$urltext = e107::getParser()->lanVars(LAN_WRAPPER_URL, array($link, $sef_link));
+			
 			e107::getMessage()->addSuccess($urltext);	
 		}
 
