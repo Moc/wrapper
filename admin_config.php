@@ -179,7 +179,7 @@ class wrapper_ui extends e_admin_ui
 		  ),
 		);
 
-		protected $fieldpref = array('wrapper_id', 'wrapper_title', 'wrapper_url', 'wrapper_height', 'wrapper_width', 'wrapper_scrollbars', 'wrapper_userclass');
+		protected $fieldpref = array('wrapper_id', 'wrapper_title', 'wrapper_url', 'wrapper_height', 'wrapper_width', 'wrapper_scrollbars', 'wrapper_userclass', 'wrapper_active');
 		
 
 		//	protected $preftabs = array('General', 'Other' );
