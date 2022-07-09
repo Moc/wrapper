@@ -37,7 +37,7 @@ list($id, $wrap_pass) = explode('&amp;wrap_pass=', e_QUERY, 2);
 
 // Set caption
 $title 	 = $wrapper->getTitle($id);
-$caption = empty($title) ? LAN_WRAPPER_NAME : $title; 
+$caption = empty($title) ? LAN_ERROR : $title; 
 define('e_PAGETITLE', $caption); 
 
 // Render the page

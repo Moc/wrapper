@@ -10,18 +10,27 @@
 
 class Wrapper
 {
-	public function getTitle($id)
+	public function getTitle($id = '')
 	{
+		if(empty($id)) { return; }
+
+		// Secure user input
 		$id = (int) $id; 
+		
 		$title = e107::getDb()->retrieve('wrapper', 'wrapper_title', 'wrapper_id='.$id);
 		return $title;
 	}
 
-	public function showWrapper($id, $pass)
+	public function showWrapper($id = '', $wrap_pass = '')
 	{
 		// Secure user input
 		$id = (int) $id; 
-		$wrap_pass = $pass;
+
+		// Check if ID is filled in
+		if(empty($id))
+		{
+			return e107::getMessage()->addError(LAN_WRAPPER_ERR1)->render();
+		}
 
 		// Check for ID validity - display error if ID is not found in the database
 		if(!e107::getDb()->select("wrapper", "*", "wrapper_id='$id'"))
