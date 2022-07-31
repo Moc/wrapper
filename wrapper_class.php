@@ -10,48 +10,81 @@
 
 class Wrapper
 {
-	public function getTitle($id = '')
-	{
-		if(empty($id)) { return; }
+	public int $id;
+	public $errorMessage = '';
 
-		// Secure user input
-		$id = (int) $id; 
-		
-		$title = e107::getDb()->retrieve('wrapper', 'wrapper_title', 'wrapper_id='.$id);
-		return $title;
+	public function _construct(int $id)
+	{
+		// Set ID property
+		$this->id = $id; 
+
+		// Check for errors
+		//$this->checkErrors($id);
 	}
 
-	public function showWrapper($id = '', $wrap_pass = '')
-	{
-		// Secure user input
-		$id = (int) $id; 
-
+	private function checkErrors($id)
+	{	
 		// Check if ID is filled in
 		if(empty($id))
 		{
-			return e107::getMessage()->addError(LAN_WRAPPER_ERR1)->render();
+			$this->errorMessage = LAN_WRAPPER_ERR1; 
+			return;
 		}
 
 		// Check for ID validity - display error if ID is not found in the database
 		if(!e107::getDb()->select("wrapper", "*", "wrapper_id='$id'"))
 		{
-			return e107::getMessage()->addError(LAN_WRAPPER_ERR2)->render();
+			$this->errorMessage = LAN_WRAPPER_ERR2; 
+			return;
 		}
 
 		// Wrapper exists - get all the info
-		$wrapper_query 	= e107::getDb()->retrieve('wrapper', '*', 'wrapper_id='.$id);
+		$wrapper_query = e107::getDb()->retrieve('wrapper', '*', 'wrapper_id='.$id);
 
 		// Check for userclass access
 		if(!check_class($wrapper_query['wrapper_userclass']))
 		{
-			return e107::getMessage()->addError(LAN_WRAPPER_ERR3)->render(); 
+			$this->errorMessage = LAN_WRAPPER_ERR3; 
+			return;
 		}
 
-		// Check for userclass access
+		// Check if wrapper is active
 		if(!$wrapper_query['wrapper_active'])
 		{
-			return e107::getMessage()->addError(LAN_WRAPPER_ERR4)->render(); 
+			$this->errorMessage = LAN_WRAPPER_ERR4; 
+			return;
 		}
+	}
+
+	public function getCaption($id)
+	{
+		// Check for errors
+		$this->checkErrors($id);
+
+		// Return LAN_ERROR is error is detected
+		if($this->errorMessage)
+		{
+			return LAN_ERROR;
+		}
+		
+		// No errors, so return wrapper title as stored in DB
+		return e107::getDb()->retrieve('wrapper', 'wrapper_title', 'wrapper_id='.$id);
+
+	}
+
+	public function showWrapper($id = '', $wrap_pass = '')
+	{
+		// Check for errors
+		$this->checkErrors($id);
+
+		
+		if($this->errorMessage)
+		{
+			return e107::getMessage()->addError($this->errorMessage)->render();
+		}
+
+		// No erorr, wrapper exists - get all the info
+		$wrapper_query 	= e107::getDb()->retrieve('wrapper', '*', 'wrapper_id='.$id);
 
 		// Convert scrollbars DB value to HTML values used in iframe tag
 		$scrollbars = ($wrapper_query['wrapper_scrollbars'] == 1 ? 'yes' : 'no');

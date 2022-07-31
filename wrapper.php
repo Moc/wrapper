@@ -25,27 +25,20 @@ e107::lan('wrapper', false, true);
 require_once(e_PLUGIN."wrapper/wrapper_class.php");
 
 $caption 	= '';
-$error 		= '';
 $id 		= '';
 $wrap_pass 	= '';
-
-// Initiate the wrapper class; 
-$wrapper = new Wrapper(); 
 
 // Retrieve query and check for wrap_pass
 list($id, $wrap_pass) = explode('&amp;wrap_pass=', e_QUERY, 2);
 
-// Set caption
-if($id == false) // no wrapper ID set
-{
-    // TODO - Check for custom Wrapper Frontpage. 
+// Secure user input
+$id = (int) $id;
 
-    $caption = LAN_ERROR; 
-}
-else
-{
-    $caption   = $wrapper->getTitle($id);
-}
+// Initiate the wrapper class; 
+$wrapper = new Wrapper($id); 
+
+// Set caption
+$caption = $wrapper->getCaption($id);
 
 define('e_PAGETITLE', $caption); 
 
@@ -53,6 +46,7 @@ define('e_PAGETITLE', $caption);
 require_once(HEADERF);
 
 $text = $wrapper->showWrapper($id, $wrap_pass);
+
 $ns->tablerender($caption, e107::getMessage()->render().$text);
 
 require_once(FOOTERF);
