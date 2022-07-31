@@ -199,7 +199,7 @@ class wrapper_ui extends e_admin_ui
 			),
 			'frontpage_text' => array( 
 				'title' 	 => LAN_WRAPPER_FRONTPAGETEXT,
-				'type' 		 => 'textarea', 
+				'type' 		 => 'bbarea', 
 				'data' 		 => 'str', 
 				'width'  	 => 'auto', 
 				'inline'  	 => true, 

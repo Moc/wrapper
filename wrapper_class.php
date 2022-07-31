@@ -111,7 +111,7 @@ class Wrapper
 		{
 			if($this->frontpageText)
 			{
-				return e107::getParser()->toHTML($this->frontpageText);; 
+				return e107::getParser()->toHTML($this->frontpageText, true);
 			}
 			else
 			{
