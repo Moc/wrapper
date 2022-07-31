@@ -12,14 +12,26 @@ class Wrapper
 {
 	public int $id;
 	public $errorMessage = '';
+	public $frontpageTitle; 
+	public $frontpageText; 
 
-	public function _construct(int $id)
+	public function __construct(int $id)
 	{
 		// Set ID property
 		$this->id = $id; 
 
-		// Check for errors
-		//$this->checkErrors($id);
+		// Check and set frontpage title
+		if(e107::pref('wrapper', 'frontpage_title'))
+		{
+			$this->frontpageTitle = e107::pref('wrapper', 'frontpage_title');
+		}
+		// Check and set frontpage title
+		if(e107::pref('wrapper', 'frontpage_text'))
+		{
+			$this->frontpageText = e107::pref('wrapper', 'frontpage_text');
+		}
+
+		$this->checkErrors($id);
 	}
 
 	private function checkErrors($id)
@@ -27,7 +39,13 @@ class Wrapper
 		// Check if ID is filled in
 		if(empty($id))
 		{
-			$this->errorMessage = LAN_WRAPPER_ERR1; 
+			// Check if frontpage title is set. If not set, show error message. Otherwise continue without error message. 
+			if($this->frontpageTitle == "")
+			{
+				$this->errorMessage = LAN_WRAPPER_ERR1; 
+				return;
+			}	
+
 			return;
 		}
 
@@ -58,29 +76,47 @@ class Wrapper
 
 	public function getCaption($id)
 	{
-		// Check for errors
-		$this->checkErrors($id);
-
 		// Return LAN_ERROR is error is detected
 		if($this->errorMessage)
 		{
 			return LAN_ERROR;
 		}
-		
-		// No errors, so return wrapper title as stored in DB
-		return e107::getDb()->retrieve('wrapper', 'wrapper_title', 'wrapper_id='.$id);
 
+		// Check if no ID entered, but no errorMessage. Likely there's a frontpage title set. Check, and show that. Otherwise fallback to LAN_ERROR.
+		if(empty($id))
+		{
+			if($this->frontpageTitle)
+			{
+				return $this->frontpageTitle; 
+			}
+			else
+			{
+				return LAN_ERROR;
+			}
+		}
+		
+		// No errors, no frontpage title/text, so return wrapper title as stored in DB
+		return e107::getDb()->retrieve('wrapper', 'wrapper_title', 'wrapper_id='.$id);
 	}
 
 	public function showWrapper($id = '', $wrap_pass = '')
 	{
-		// Check for errors
-		$this->checkErrors($id);
-
-		
 		if($this->errorMessage)
 		{
 			return e107::getMessage()->addError($this->errorMessage)->render();
+		}
+
+		// Check if no ID entered, but no errorMessage. Likely there's a frontpage text set. Check, and show that. Otherwise fallback to LAN_WRAPPER_ERR1.
+		if(empty($id))
+		{
+			if($this->frontpageText)
+			{
+				return e107::getParser()->toHTML($this->frontpageText);; 
+			}
+			else
+			{
+				return e107::getMessage()->addError(LAN_WRAPPER_ERR1)->render();
+			}
 		}
 
 		// No erorr, wrapper exists - get all the info

@@ -12,6 +12,8 @@ define("LAN_WRAPPER_HEIGHT", 	"Height");
 define("LAN_WRAPPER_WIDTH", 	"Width");
 define("LAN_WRAPPER_SCROLLBARS","Scrollbars");
 
+define("LAN_WRAPPER_URL", "The URL for this Wrapper is [x] or [y]");
+
 // HELP
 define("LAN_WRAPPER_TITLE_HELP", 	"The title of the page (not required). May be left empty to display no caption.");
 define("LAN_WRAPPER_URL_HELP", 		"The URL of the external page you want to include.");
@@ -21,6 +23,12 @@ define("LAN_WRAPPER_SCROLLBARS_HELP", "If enabled, the frame will have scrollbar
 define("LAN_WRAPPER_USERCLASS_HELP", "Select the userclass that is allowed to access this wrapper.");
 define("LAN_WRAPPER_ACTIVE_HELP",   "If disabled, an error message will be displayed instead of the wrapper.");
 
-define("LAN_WRAPPER_URL", "The URL for this Wrapper is [x] or [y]");
-
 define("LAN_WRAPPER_HELP", "Please refer to the [documentation] for any question that you may have."); // Brackets create the link, do not edit!
+
+
+// PREFERENCES
+define("LAN_WRAPPER_FRONTPAGETITLE", "Wrapper Frontpage Title");
+define("LAN_WRAPPER_FRONTPAGETEXT", "Wrapper Frontpage Text");
+
+define("LAN_WRAPPER_FRONTPAGETITLE_HELP", "This title is displayed when no Wrapper ID is set. If title is not set, 'Error' is shown.");
+define("LAN_WRAPPER_FRONTPAGETEXT_HELP", "This text is displayed when no Wrapper ID is set. If text is not set, an error message is shown.");

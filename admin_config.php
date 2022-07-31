@@ -34,6 +34,7 @@ class wrapper_adminArea extends e_admin_dispatcher
 	protected $adminMenu = array(
 		'main/list'			=> array('caption'=> LAN_MANAGE, 'perm' => 'P'),
 		'main/create'		=> array('caption'=> LAN_CREATE, 'perm' => 'P'),
+		'main/prefs'		=> array('caption'=> LAN_PREFS, 'perm' => 'P'),
 	);
 
 	protected $adminMenuAliases = array(
@@ -184,6 +185,30 @@ class wrapper_ui extends e_admin_ui
 
 		//	protected $preftabs = array('General', 'Other' );
 		protected $prefs = array(
+			'frontpage_title' => array( 
+				'title' 	 => LAN_WRAPPER_FRONTPAGETITLE,
+				'type' 		 => 'text', 
+				'data' 		 => 'str', 
+				'width'  	 => 'auto', 
+				'inline'  	 => true, 
+				'help'  	 => LAN_WRAPPER_FRONTPAGETITLE_HELP,
+				'readParms'  => '', 
+				'writeParms' => array('size'=>'xxlarge'), 
+				'class' 	 => 'left', 
+				'thclass' 	 => 'left',  
+			),
+			'frontpage_text' => array( 
+				'title' 	 => LAN_WRAPPER_FRONTPAGETEXT,
+				'type' 		 => 'textarea', 
+				'data' 		 => 'str', 
+				'width'  	 => 'auto', 
+				'inline'  	 => true, 
+				'help'  	 => LAN_WRAPPER_FRONTPAGETEXT_HELP, 
+				'readParms'  => '', 
+				'writeParms' => array('size'=>'xxlarge'), 
+				'class' 	 => 'left', 
+				'thclass' 	 => 'left',  
+				),
 		);
 
 		public function init()
