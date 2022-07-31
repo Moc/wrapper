@@ -36,8 +36,17 @@ $wrapper = new Wrapper();
 list($id, $wrap_pass) = explode('&amp;wrap_pass=', e_QUERY, 2);
 
 // Set caption
-$title 	 = $wrapper->getTitle($id);
-$caption = empty($title) ? LAN_ERROR : $title; 
+if($id == false) // no wrapper ID set
+{
+    // TODO - Check for custom Wrapper Frontpage. 
+
+    $caption = LAN_ERROR; 
+}
+else
+{
+    $caption   = $wrapper->getTitle($id);
+}
+
 define('e_PAGETITLE', $caption); 
 
 // Render the page
